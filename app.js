@@ -80,10 +80,11 @@ const galleryMarkup = () => {
 galleryMarkup();
 let currentIndex;
 function onOpenModal(event) {
-  event.target.nodeName === "IMG" && refs.lightbox.classList.add('is-open');
+  if (event.target.nodeName !== "IMG") return;
+  refs.lightbox.classList.add('is-open');
   let itemChoose = galleryItems.find(item => item.preview === event.target.src);
   currentIndex = galleryItems.indexOf(itemChoose)
-  // console.log(galleryItems.indexOf(itemChoose));
+  // console.log(event.target);
   refs.lightboxImage.src = itemChoose.original;
   refs.lightboxImage.alt = itemChoose.description;
   event.preventDefault();
@@ -119,4 +120,3 @@ function onKeyPress(event) {
 refs.galleryList.addEventListener('click', onOpenModal);
 refs.lightbox.addEventListener('click', onCloseModal);
 document.addEventListener('keydown', onKeyPress);
-console.log(currentIndex);
